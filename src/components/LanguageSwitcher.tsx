@@ -14,10 +14,8 @@ const LanguageSwitcher = () => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const storedLang = localStorage.getItem("language") || "en"; // ✅ Load saved language
-    console.log({ storedLang });
-    dispatch(setLanguage(storedLang));
-    i18n.changeLanguage(storedLang);
+    dispatch(setLanguage(currentLanguage));
+    i18n.changeLanguage(currentLanguage);
     setIsInitialized(true);
   }, [dispatch, currentLanguage]);
 
