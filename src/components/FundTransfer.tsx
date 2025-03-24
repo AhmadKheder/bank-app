@@ -2,12 +2,15 @@
 
 import { transferFunds } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
-import { t } from "i18next";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import "../app/globals.css";
 
 export default function FundTransfer() {
-  const accounts = useSelector((state: RootState) => state.accounts.accounts);
+  const { t } = useTranslation();
+  const accounts =
+    useSelector((state: RootState) => state.accounts.accounts) || [];
   const dispatch = useDispatch();
 
   const [transferData, setTransferData] = useState({
@@ -20,7 +23,6 @@ export default function FundTransfer() {
     fromCurrency: string,
     toCurrency: string
   ): Promise<number> => {
-    console.log({ fromCurrency, toCurrency });
     if (fromCurrency === toCurrency) return 1;
 
     try {
@@ -33,33 +35,25 @@ export default function FundTransfer() {
         throw new Error("Failed to fetch exchange rates.");
       }
 
-      //   const fromRate = data.rates[fromCurrency];
-      const fromRate = 1;
-      const toRate = data.rates[toCurrency];
-
-      if (!fromRate || !toRate) {
-        throw new Error("Currency conversion not supported.");
-      }
-      console.log(toRate / fromRate, { toRate, fromRate });
-
-      return toRate / fromRate; // Conversion factor
+      return data.rates[toCurrency] || 1;
     } catch (error) {
       console.error("Error fetching exchange rates:", error);
-      throw error;
+      return 1;
     }
   };
+
   const handleTransfer = async () => {
     const fromId = Number(transferData.fromAccountId);
     const toId = Number(transferData.toAccountId);
     const amount = Number(transferData.amount);
 
     if (!fromId || !toId || amount <= 0) {
-      alert("Invalid transfer details.");
+      alert(t("Invalid transfer details."));
       return;
     }
 
     if (fromId === toId) {
-      alert("Cannot transfer to the same account.");
+      alert(t("Cannot transfer to the same account."));
       return;
     }
 
@@ -67,7 +61,7 @@ export default function FundTransfer() {
     const toAccount = accounts.find((acc) => acc.id === toId);
 
     if (!fromAccount || !toAccount) {
-      alert("Invalid accounts.");
+      alert(t("Invalid accounts."));
       return;
     }
 
@@ -88,7 +82,7 @@ export default function FundTransfer() {
 
       setTransferData({ fromAccountId: "", toAccountId: "", amount: "" });
     } catch (error) {
-      alert("Error fetching exchange rates. Please try again.");
+      alert(t("Error fetching exchange rates. Please try again."));
     }
   };
 

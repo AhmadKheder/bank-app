@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export function Navbar() {
+  const { t } = useTranslation();
+
   return (
     <nav className="py-5 flex items-center justify-between">
       <div className="flex items-center gap-6">
@@ -15,15 +21,16 @@ export function Navbar() {
             href="/"
             className="text-sm font-medium hover:text-blue-500 transition-colors"
           >
-            Home
+            {t("Home")}
           </Link>
           <Link
             href="/"
             className="text-sm font-medium hover:text-blue-500 transition-colors"
           >
-            Dashboard
+            {t("Dashboard")}
           </Link>
         </div>
+        <LanguageSwitcher />
       </div>
     </nav>
   );

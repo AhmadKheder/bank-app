@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface LanguageState {
-  language: string;
-}
+const storedLanguage = typeof window !== "undefined" ? localStorage.getItem("language") : "en";
 
-const initialState: LanguageState = {
-  language: "en", // Default language
+const initialState = {
+  language: storedLanguage || "en",
 };
 
-export const languageSlice = createSlice({
+const languageSlice = createSlice({
   name: "language",
   initialState,
   reducers: {
     setLanguage: (state, action: PayloadAction<string>) => {
-      console.log("Changing language to>>>>", action.payload);
       state.language = action.payload;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", action.payload);
+      }
     },
   },
 });

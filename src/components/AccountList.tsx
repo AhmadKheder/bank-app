@@ -1,10 +1,12 @@
 "use client";
 
+// import "@/i18n";
 import { addAccount, editAccount, removeAccount } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import "../app/globals.css";
 
 const currencySymbols: Record<string, string> = {
   EUR: "€",
@@ -25,7 +27,6 @@ export default function AccountList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [editAccountId, setEditAccountId] = useState<number | null>(null);
   const [editValues, setEditValues] = useState({ balance: "", currency: "" });
-
   const handleAddAccount = () => {
     if (!newAccount.balance) {
       alert(t("Balance is required."));
@@ -64,7 +65,7 @@ export default function AccountList() {
     : accounts;
 
   return (
-    <div className="p-4">
+    <div className="p-4 border rounded shadow my-4">
       <h1 className="text-xl font-bold">Bank Accounts</h1>
 
       {/* Search bar */}

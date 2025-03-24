@@ -11,26 +11,40 @@ const LanguageSwitcher = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language
   );
-
-  // Local state to avoid hydration issues
-  const [clientLanguage, setClientLanguage] = useState(i18n.language);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Sync with Redux state after mount
-    setClientLanguage(currentLanguage);
-    i18n.changeLanguage(currentLanguage);
-  }, [currentLanguage]);
+    const storedLang = localStorage.getItem("language") || "en"; // ✅ Load saved language
+    console.log({ storedLang });
+    dispatch(setLanguage(storedLang));
+    i18n.changeLanguage(storedLang);
+    setIsInitialized(true);
+  }, [dispatch, currentLanguage]);
 
-  const changeLanguage = (lang: string) => {
-    dispatch(setLanguage(lang)); // Update Redux state
-    i18n.changeLanguage(lang); // Update i18n instance
-  };
+  useEffect(() => {
+    if (isInitialized) {
+      i18n.changeLanguage(currentLanguage);
+    }
+  }, [currentLanguage, isInitialized]);
+
+  if (!isInitialized) {
+    return <p className="text-white bg-blue-500 p-2 rounded">Loading...</p>;
+  }
 
   return (
-    <div>
-      <button onClick={() => changeLanguage("en")}>English</button>
-      <br />
-      <button onClick={() => changeLanguage("fr")}>Français</button>
+    <div className="flex gap-2">
+      <button
+        className="text-white bg-blue-500 p-2 rounded"
+        onClick={() => dispatch(setLanguage("en"))}
+      >
+        English
+      </button>
+      <button
+        className="text-white bg-blue-500 p-2 rounded"
+        onClick={() => dispatch(setLanguage("fr"))}
+      >
+        Français
+      </button>
     </div>
   );
 };
