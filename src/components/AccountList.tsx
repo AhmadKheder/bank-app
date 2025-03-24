@@ -1,6 +1,5 @@
 "use client";
 
-// import "@/i18n";
 import { addAccount, editAccount, removeAccount } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
