@@ -16,6 +16,7 @@ type AccountsState = {
   lastOwnerId: number; // Keep track of the last used ownerId
 };
 
+// Retrieve last used owner ID from localStorage (if available)
 const getLastOwnerId = (): number => {
   if (typeof window !== "undefined") {
     const storedId = localStorage.getItem("lastOwnerId");
@@ -25,7 +26,13 @@ const getLastOwnerId = (): number => {
 };
 
 const initialState: AccountsState = {
-  accounts: [],
+  accounts: [
+    { id: 1, ownerId: 1001, currency: "USD", balance: 5000 },
+    { id: 2, ownerId: 1002, currency: "EUR", balance: 3000 },
+    { id: 3, ownerId: 1003, currency: "GBP", balance: 2000 },
+    { id: 4, ownerId: 1004, currency: "CAD", balance: 4000 },
+    { id: 5, ownerId: 1005, currency: "JPY", balance: 250000 },
+  ],
   lastOwnerId: getLastOwnerId(),
 };
 
@@ -66,8 +73,8 @@ const accountSlice = createSlice({
       } else {
         console.error('Transfer failed: Insufficient balance or invalid accounts.');
       }
-    }
-  }
+    },
+  },
 });
 
 export const { addAccount, removeAccount, editAccount, transferFunds } = accountSlice.actions;
