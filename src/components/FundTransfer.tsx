@@ -87,6 +87,7 @@ export default function FundTransfer() {
 
       setTransferData({ fromAccountId: "", toAccountId: "", amount: "" });
     } catch (error) {
+      console.error("Error transferring funds:", error);
       showToast({ message: t("Error transferring funds."), type: "error" });
     }
   };
