@@ -122,6 +122,7 @@ export default function FundTransfer() {
         <input
           type="number"
           value={transferData.amount}
+          placeholder="0"
           onChange={(e) =>
             setTransferData({ ...transferData, amount: e.target.value })
           }

@@ -76,11 +76,10 @@ export default function AccountList({
   return (
     <div className="p-4 border rounded shadow my-4">
       <h1 className="text-xl font-bold">Bank Accounts</h1>
-
       {/* Search bar */}
       <Input
         type="number"
-        placeholder="Search by Owner ID"
+        placeholder="Search by Owner ID number"
         className="border p-2 w-full mb-4"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -112,7 +111,6 @@ export default function AccountList({
           </Button>
         </div>
       </div>
-
       {/* Accounts list */}
       {isDashboard && searchTerm === "" ? null : (
         <ul>
