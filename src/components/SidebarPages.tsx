@@ -6,6 +6,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { t } from "i18next";
 import { type LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -29,7 +30,7 @@ export function SidebarPages({
             <SidebarMenuButton asChild>
               <Link href={item.url}>
                 <item.icon />
-                <span>{item.name}</span>
+                <span>{t(item.name)}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

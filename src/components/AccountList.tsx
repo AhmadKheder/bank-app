@@ -35,7 +35,7 @@ export default function AccountList({
 
   const handleAddAccount = () => {
     if (!newAccount.balance) {
-      showToast({ message: "Balance is required.", type: "error" });
+      showToast({ message: t("Balance is required."), type: "error" });
       return;
     }
 
@@ -48,7 +48,7 @@ export default function AccountList({
     );
 
     setNewAccount({ currency: "EUR", balance: "" });
-    showToast({ message: "Account added successfully.", type: "success" });
+    showToast({ message: t("Account added successfully."), type: "success" });
   };
 
   const handleUpdateAccount = (id: number) => {
@@ -77,11 +77,11 @@ export default function AccountList({
 
   return (
     <div className="p-4 border rounded shadow my-4">
-      <h1 className="text-xl font-bold">Bank Accounts</h1>
+      <h1 className="text-xl font-bold">{t("Bank Accounts")}</h1>
       {/* Search bar */}
       <Input
         type="number"
-        placeholder="Search by Owner ID number"
+        placeholder={t("Search by Owner ID number")}
         className="border p-2 w-full mb-4"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -101,7 +101,7 @@ export default function AccountList({
         <div className="flex items-center">
           <Input
             type="number"
-            placeholder="Balance"
+            placeholder={t("Balance")}
             value={newAccount.balance}
             onChange={(e) =>
               setNewAccount({ ...newAccount, balance: e.target.value })
@@ -154,7 +154,7 @@ export default function AccountList({
                     variant="secondary"
                     className="p-1 text-gray-00"
                   >
-                    Cancel
+                    {t("Cancel")}
                   </Button>
                 </div>
               ) : (

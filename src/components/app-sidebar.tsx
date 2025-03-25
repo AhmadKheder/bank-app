@@ -10,6 +10,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { t } from "i18next";
 import Link from "next/link";
 import ERSLogo from "./ui/ERSLogo";
 
@@ -56,15 +57,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         >
           <div className="border-1 bg-gray-100 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
             <ERSLogo />
-            {/* <sidebarLogo.logo className="size-4" /> */}
           </div>
 
           <div className="grid flex-1 text-left text-lg leading-tight">
             <span className="truncate font-bold">
-              Bank <span className="text-blue-500">ERS</span>
+              {t("Bank")} <span className="text-blue-500">ERS</span>
             </span>
 
-            <span className="truncate text-xs ">{sidebarLogo.plan}</span>
+            <span className="truncate text-xs ">{t(sidebarLogo.plan)}</span>
           </div>
         </Link>
       </SidebarHeader>

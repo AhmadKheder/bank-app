@@ -12,5 +12,21 @@
   "Select account": "Sélectionner un compte",
   "Amount": "Montant",
   "Home": "Accueil",
-  "Dashboard": "Tableau de bord"
+  "Dashboard": "Tableau de bord",
+  "accounts": "comptes",
+  "Account": "Compte",
+  "Accounts": "Comptes",
+  "Cancel": "Annuler",
+  "Bank": "Banque",
+  "Enterprise": "Entreprise",
+  "Search by Owner ID number": "Rechercher par numéro d'identification du propriétaire",
+  "Balance": "Solde",
+  "Bank Accounts": "Comptes bancaires",
+  "Account added successfully.": "Compte ajouté avec succès.",
+  "Invalid transfer details.": "Détails de transfert invalides.",
+  "Cannot transfer to the same account.": "Impossible de transférer vers le même compte.",
+  "Invalid accounts.": "Comptes invalides.",
+  "Invalid amount.": "Montant invalide.",
+  "Error transferring funds.": "Erreur de transfert de fonds.",
+  "Transfer failed: Insufficient balance or invalid accounts.": "Échec du transfert : solde insuffisant ou comptes invalides."
 }

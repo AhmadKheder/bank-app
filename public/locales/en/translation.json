@@ -12,5 +12,21 @@
   "Select account": "Select Account",
   "Amount": "Amount",
   "Home": "Home",
-  "Dashboard": "Dashboard"
+  "Dashboard": "Dashboard",
+  "accounts": "accounts",
+  "Account": "Account",
+  "Accounts": "Accounts",
+  "Cancel": "Cancel",
+  "Bank": "Bank",
+  "Enterprise": "Enterprise",
+  "Search by Owner ID number": "Search by Owner ID number",
+  "Balance": "Balance",
+  "Bank Accounts": "Bank Accounts",
+  "Account added successfully.": "Account added successfully.",
+  "Invalid transfer details.": "Invalid transfer details.",
+  "Cannot transfer to the same account.": "Cannot transfer to the same account.",
+  "Invalid accounts.": "Invalid accounts.",
+  "Invalid amount.": "Invalid amount.",
+  "Error transferring funds.": "Error transferring funds.",
+  "Transfer failed: Insufficient balance or invalid accounts.": "Transfer failed: Insufficient balance or invalid accounts."
 }
