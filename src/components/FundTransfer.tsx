@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import "../app/globals.css";
+import { Button } from "./ui/button";
 import { Select } from "./ui/select";
 export default function FundTransfer() {
   const { t } = useTranslation();
@@ -133,12 +134,9 @@ export default function FundTransfer() {
           className="w-full border text-gray-600 border-input bg-background rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring "
         />
       </div>
-      <button
-        onClick={handleTransfer}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
+      <Button onClick={handleTransfer} variant="default">
         {t("Transfer Funds")}
-      </button>
+      </Button>
     </div>
   );
 }
