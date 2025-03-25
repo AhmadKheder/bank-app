@@ -11,6 +11,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import ERSLogo from "./ui/ERSLogo";
 
 const getIcon = (name: string) => {
   switch (name.toLowerCase()) {
@@ -24,11 +25,6 @@ const getIcon = (name: string) => {
 };
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   sidebarLogo: [
     {
       name: "Bank ERS",
@@ -45,7 +41,6 @@ const data = {
       name: "Accounts",
       url: "/accounts",
     },
-    
   ],
 };
 
@@ -55,16 +50,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <Link href="/">
-          <button className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex-row items-center justify-start flex gap-4 p-2 rounded-lg">
-            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-              <sidebarLogo.logo className="size-4" />
-            </div>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{sidebarLogo.name}</span>
-              <span className="truncate text-xs">{sidebarLogo.plan}</span>
-            </div>
-          </button>
+        <Link
+          href="/"
+          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex-row items-center justify-start flex gap-4 p-2 rounded-lg"
+        >
+          <div className="border-1 bg-gray-100 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+            <ERSLogo />
+            {/* <sidebarLogo.logo className="size-4" /> */}
+          </div>
+
+          <div className="grid flex-1 text-left text-lg leading-tight">
+            <span className="truncate font-bold">
+              Bank <span className="text-blue-500">ERS</span>
+            </span>
+
+            <span className="truncate text-xs ">{sidebarLogo.plan}</span>
+          </div>
         </Link>
       </SidebarHeader>
       <SidebarContent>

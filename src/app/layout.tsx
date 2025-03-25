@@ -1,7 +1,7 @@
 // "use client";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import { Navbar } from "@/components/Navbar";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import TranslationProvider from "@/components/TranslationProvider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import ReduxProvider from "@/store/provider";
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black max-2-2xl mx-auto p-4 lg:px-8 text-white">
+      <body className=" max-2-2xl mx-auto p-4 lg:px-8 ">
         <ReduxProvider>
           <TranslationProvider>
             <SidebarProvider>
@@ -22,7 +22,7 @@ export default function RootLayout({
               <div className="flex flex-col w-full h-screen">
                 <div className="flex flex-row justify-between w-full h-screen items-center">
                   <SidebarTrigger />
-                  <Navbar />
+                  <LanguageSwitcher />
                 </div>
 
                 {children}
