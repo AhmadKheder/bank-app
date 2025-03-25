@@ -61,6 +61,7 @@ export default function AccountList({
       })
     );
     setEditAccountId(null);
+    showToast({ message: t("Account updated successfully."), type: "success" });
   };
 
   const filteredAccounts = searchTerm

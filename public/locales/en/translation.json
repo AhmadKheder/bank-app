@@ -28,5 +28,6 @@
   "Invalid accounts.": "Invalid accounts.",
   "Invalid amount.": "Invalid amount.",
   "Error transferring funds.": "Error transferring funds.",
-  "Transfer failed: Insufficient balance or invalid accounts.": "Transfer failed: Insufficient balance or invalid accounts."
+  "Transfer failed: Insufficient balance or invalid accounts.": "Transfer failed: Insufficient balance or invalid accounts.",
+  "Account updated successfully.": "Account updated successfully."
 }
