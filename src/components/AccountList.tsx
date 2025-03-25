@@ -13,11 +13,15 @@ const currencySymbols: Record<string, string> = {
   GBP: "£",
 };
 
-export default function AccountList() {
+export default function AccountList({
+  isDashboard = false,
+}: {
+  isDashboard?: boolean;
+}) {
   const accounts = useSelector((state: RootState) => state.accounts.accounts);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  console.log(">>>Ahmad", isDashboard ? "Dashboard" : "Not Dashboard");
   const [newAccount, setNewAccount] = useState({
     currency: "EUR",
     balance: "",
@@ -107,68 +111,73 @@ export default function AccountList() {
       </div>
 
       {/* Accounts list */}
-      <ul>
-        {filteredAccounts.map((account) => (
-          <li key={account.id} className="border p-2 my-2 flex justify-between">
-            {editAccountId === account.id ? (
+      {isDashboard && searchTerm == "" ? null : (
+        <ul>
+          {filteredAccounts.map((account) => (
+            <li
+              key={account.id}
+              className="border p-2 my-2 flex justify-between"
+            >
+              {editAccountId === account.id ? (
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={editValues.balance}
+                    onChange={(e) =>
+                      setEditValues({ ...editValues, balance: e.target.value })
+                    }
+                    className="border p-2 w-24"
+                  />
+                  <select
+                    value={editValues.currency}
+                    onChange={(e) =>
+                      setEditValues({ ...editValues, currency: e.target.value })
+                    }
+                    className="border p-2"
+                  >
+                    <option value="EUR">EUR (€)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="GBP">GBP (£)</option>
+                  </select>
+                  <button
+                    onClick={() => handleUpdateAccount(account.id)}
+                    className="bg-green-500 text-white px-2 py-1 rounded"
+                  >
+                    {t("Update")}
+                  </button>
+                </div>
+              ) : (
+                <span>
+                  {t("Owner")}: {account.ownerId}, {account.currency} -{" "}
+                  {currencySymbols[account.currency] || ""} {account.balance}
+                </span>
+              )}
               <div className="flex gap-2">
-                <input
-                  type="number"
-                  value={editValues.balance}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, balance: e.target.value })
-                  }
-                  className="border p-2 w-24"
-                />
-                <select
-                  value={editValues.currency}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, currency: e.target.value })
-                  }
-                  className="border p-2"
-                >
-                  <option value="EUR">EUR (€)</option>
-                  <option value="USD">USD ($)</option>
-                  <option value="GBP">GBP (£)</option>
-                </select>
+                {editAccountId === account.id ? null : (
+                  <button
+                    onClick={() => {
+                      setEditAccountId(account.id);
+                      setEditValues({
+                        balance: account.balance.toString(),
+                        currency: account.currency,
+                      });
+                    }}
+                    className="bg-yellow-500 text-white px-2 py-1 rounded"
+                  >
+                    {t("Edit")}
+                  </button>
+                )}
                 <button
-                  onClick={() => handleUpdateAccount(account.id)}
-                  className="bg-green-500 text-white px-2 py-1 rounded"
+                  onClick={() => dispatch(removeAccount(account.id))}
+                  className="bg-red-500 text-white px-2 py-1 rounded"
                 >
-                  {t("Update")}
+                  {t("Remove")}
                 </button>
               </div>
-            ) : (
-              <span>
-                {t("Owner")}: {account.ownerId}, {account.currency} -{" "}
-                {currencySymbols[account.currency] || ""} {account.balance}
-              </span>
-            )}
-            <div className="flex gap-2">
-              {editAccountId === account.id ? null : (
-                <button
-                  onClick={() => {
-                    setEditAccountId(account.id);
-                    setEditValues({
-                      balance: account.balance.toString(),
-                      currency: account.currency,
-                    });
-                  }}
-                  className="bg-yellow-500 text-white px-2 py-1 rounded"
-                >
-                  {t("Edit")}
-                </button>
-              )}
-              <button
-                onClick={() => dispatch(removeAccount(account.id))}
-                className="bg-red-500 text-white px-2 py-1 rounded"
-              >
-                {t("Remove")}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

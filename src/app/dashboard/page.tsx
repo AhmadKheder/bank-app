@@ -1,13 +1,14 @@
 import AccountList from "@/components/AccountList";
 import FundTransfer from "@/components/FundTransfer";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main>
+    <SidebarProvider>
       <div className="flex flex-col w-full h-screen">
         <AccountList isDashboard={true} />
         <FundTransfer />
       </div>
-    </main>
+    </SidebarProvider>
   );
 }
