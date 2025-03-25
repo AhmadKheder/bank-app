@@ -129,7 +129,7 @@ export default function AccountList({
                     onChange={(e) =>
                       setEditValues({ ...editValues, balance: e.target.value })
                     }
-                    className="border p-2 w-24"
+                    className="border p-2 w-32"
                   />
                   <Select
                     value={editValues.currency}
