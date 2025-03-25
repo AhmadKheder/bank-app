@@ -22,6 +22,7 @@ type AccountsState = {
 const getLastOwnerId = (): number => {
   if (typeof window !== "undefined") {
     const storedId = localStorage.getItem("lastOwnerId");
+    console.log("storedId", storedId);
     return storedId ? parseInt(storedId, 10) : 1000;
   }
   return 1000;
