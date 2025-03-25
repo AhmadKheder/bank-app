@@ -160,7 +160,7 @@ export default function AccountList({
                 </div>
               ) : (
                 <span>
-                  {t("Owner")}: {account.ownerId}, {account.currency} -{" "}
+                  {t("Owner")} {account.ownerId}: {account.currency} -{" "}
                   {currencySymbols[account.currency] || ""} {account.balance}
                 </span>
               )}
