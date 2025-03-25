@@ -33,15 +33,16 @@ const LanguageSwitcher = () => {
   return (
     <div className="flex gap-2">
       <Button
-        className="text-white bg-blue-500 p-2 rounded-lg"
+        className=" p-2 rounded-lg"
         onClick={() => dispatch(setLanguage("en"))}
+        variant={currentLanguage === "en" ? "secondary" : "default"}
       >
         En
       </Button>
       <Button
-        className="text-white bg-blue-500 p-2 rounded-lg"
+        className=" p-2 rounded-lg"
         onClick={() => dispatch(setLanguage("fr"))}
-        variant="default"
+        variant={currentLanguage !== "en" ? "secondary" : "default"}
       >
         FR
       </Button>
