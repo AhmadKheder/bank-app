@@ -1,12 +1,14 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
 import { addAccount, editAccount, removeAccount } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import "../app/globals.css";
-
+import { Button } from "./ui/button";
+import { Select } from "./ui/select";
 const currencySymbols: Record<string, string> = {
   EUR: "€",
   USD: "$",
@@ -21,7 +23,6 @@ export default function AccountList({
   const accounts = useSelector((state: RootState) => state.accounts.accounts);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  console.log(">>>Ahmad", isDashboard ? "Dashboard" : "Not Dashboard");
   const [newAccount, setNewAccount] = useState({
     currency: "EUR",
     balance: "",
@@ -30,6 +31,7 @@ export default function AccountList({
   const [searchTerm, setSearchTerm] = useState("");
   const [editAccountId, setEditAccountId] = useState<number | null>(null);
   const [editValues, setEditValues] = useState({ balance: "", currency: "" });
+
   const handleAddAccount = () => {
     if (!newAccount.balance) {
       alert(t("Balance is required."));
@@ -47,7 +49,6 @@ export default function AccountList({
     setNewAccount({ currency: "EUR", balance: "" });
   };
 
-  // Handle updating an account
   const handleUpdateAccount = (id: number) => {
     dispatch(
       editAccount({
@@ -60,67 +61,69 @@ export default function AccountList({
     setEditAccountId(null);
   };
 
-  // Filter accounts based on search term
   const filteredAccounts = searchTerm
     ? accounts.filter((account) =>
         account.ownerId.toString().includes(searchTerm)
       )
     : accounts;
 
+  const currencyOptions = [
+    { value: "EUR", label: "EUR (€)" },
+    { value: "USD", label: "USD ($)" },
+    { value: "GBP", label: "GBP (£)" },
+  ];
+
   return (
     <div className="p-4 border rounded shadow my-4">
       <h1 className="text-xl font-bold">Bank Accounts</h1>
 
       {/* Search bar */}
-      <input
-        type="text"
+      <Input
+        type="number"
         placeholder="Search by Owner ID"
+        className="border p-2 w-full mb-4"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="border p-2 w-full mb-4"
       />
 
       {/* Add account form */}
-      <div className="mb-4">
-        <select
+      <div className="flex items-center mb-4 gap-2">
+        <Select
           value={newAccount.currency}
           onChange={(e) =>
             setNewAccount({ ...newAccount, currency: e.target.value })
           }
-          className="border p-2 mr-2"
-        >
-          <option value="EUR">EUR (€)</option>
-          <option value="USD">USD ($)</option>
-          <option value="GBP">GBP (£)</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Balance"
-          value={newAccount.balance}
-          onChange={(e) =>
-            setNewAccount({ ...newAccount, balance: e.target.value })
-          }
-          className="border p-2 mr-2"
+          options={currencyOptions}
+          className="max-w-32 "
         />
-        <button
-          onClick={handleAddAccount}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          {t("Add Account")}
-        </button>
+
+        <div className="flex items-center">
+          <Input
+            type="number"
+            placeholder="Balance"
+            value={newAccount.balance}
+            onChange={(e) =>
+              setNewAccount({ ...newAccount, balance: e.target.value })
+            }
+            className="border p-2 mr-2"
+          />
+          <Button onClick={handleAddAccount} variant="default">
+            {t("Add Account")}
+          </Button>
+        </div>
       </div>
 
       {/* Accounts list */}
-      {isDashboard && searchTerm == "" ? null : (
+      {isDashboard && searchTerm === "" ? null : (
         <ul>
           {filteredAccounts.map((account) => (
             <li
               key={account.id}
-              className="border p-2 my-2 flex justify-between"
+              className="border rounded-lg p-2 my-2 flex justify-between items-center"
             >
               {editAccountId === account.id ? (
-                <div className="flex gap-2">
-                  <input
+                <div className="flex gap-2 items-center">
+                  <Input
                     type="number"
                     value={editValues.balance}
                     onChange={(e) =>
@@ -128,23 +131,31 @@ export default function AccountList({
                     }
                     className="border p-2 w-24"
                   />
-                  <select
+                  <Select
                     value={editValues.currency}
                     onChange={(e) =>
                       setEditValues({ ...editValues, currency: e.target.value })
                     }
-                    className="border p-2"
-                  >
-                    <option value="EUR">EUR (€)</option>
-                    <option value="USD">USD ($)</option>
-                    <option value="GBP">GBP (£)</option>
-                  </select>
-                  <button
+                    options={currencyOptions}
+                    className="max-w-32 "
+                  />
+
+                  {/* Update Button */}
+                  <Button
                     onClick={() => handleUpdateAccount(account.id)}
-                    className="bg-green-500 text-white px-2 py-1 rounded"
+                    variant="default"
                   >
                     {t("Update")}
-                  </button>
+                  </Button>
+
+                  {/* Cancel (X) Button */}
+                  <Button
+                    onClick={() => setEditAccountId(null)}
+                    variant="secondary"
+                    className="p-1 text-gray-00"
+                  >
+                    Cancel
+                  </Button>
                 </div>
               ) : (
                 <span>
@@ -154,7 +165,7 @@ export default function AccountList({
               )}
               <div className="flex gap-2">
                 {editAccountId === account.id ? null : (
-                  <button
+                  <Button
                     onClick={() => {
                       setEditAccountId(account.id);
                       setEditValues({
@@ -162,17 +173,17 @@ export default function AccountList({
                         currency: account.currency,
                       });
                     }}
-                    className="bg-yellow-500 text-white px-2 py-1 rounded"
+                    variant="secondary"
                   >
                     {t("Edit")}
-                  </button>
+                  </Button>
                 )}
-                <button
+                <Button
                   onClick={() => dispatch(removeAccount(account.id))}
-                  className="bg-red-500 text-white px-2 py-1 rounded"
+                  variant="destructive"
                 >
                   {t("Remove")}
-                </button>
+                </Button>
               </div>
             </li>
           ))}

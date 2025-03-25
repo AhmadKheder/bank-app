@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import "../app/globals.css";
-
+import { Select } from "./ui/select";
 export default function FundTransfer() {
   const { t } = useTranslation();
   const accounts =
@@ -91,37 +91,31 @@ export default function FundTransfer() {
       <h2 className="text-lg font-bold mb-2">{t("Fund Transfer")}</h2>
       <div className="mb-2">
         <label className="block">{t("From Account")}:</label>
-        <select
+        <Select
           value={transferData.fromAccountId}
           onChange={(e) =>
             setTransferData({ ...transferData, fromAccountId: e.target.value })
           }
-          className="border p-2 w-full"
-        >
-          <option value="">{t("Select account")}</option>
-          {accounts.map((acc) => (
-            <option key={acc.id} value={acc.id}>
-              {acc.ownerId} - {acc.currency} {acc.balance}
-            </option>
-          ))}
-        </select>
+          options={accounts.map((acc) => ({
+            value: acc.id.toString(),
+            label: `${acc.ownerId} - ${acc.currency} ${acc.balance}`,
+          }))}
+          placeholder={t("Select account")}
+        />
       </div>
       <div className="mb-2">
         <label className="block">{t("To Account")}:</label>
-        <select
+        <Select
           value={transferData.toAccountId}
           onChange={(e) =>
             setTransferData({ ...transferData, toAccountId: e.target.value })
           }
-          className="border p-2 w-full"
-        >
-          <option value="">{t("Select account")}</option>
-          {accounts.map((acc) => (
-            <option key={acc.id} value={acc.id}>
-              {acc.ownerId} - {acc.currency} {acc.balance}
-            </option>
-          ))}
-        </select>
+          options={accounts.map((acc) => ({
+            value: acc.id.toString(),
+            label: `${acc.ownerId} - ${acc.currency} ${acc.balance}`,
+          }))}
+          placeholder={t("Select account")}
+        />
       </div>
       <div className="mb-2">
         <label className="block">{t("Amount")}:</label>
@@ -131,7 +125,7 @@ export default function FundTransfer() {
           onChange={(e) =>
             setTransferData({ ...transferData, amount: e.target.value })
           }
-          className="border p-2 w-full"
+          className="w-full border text-gray-600 border-input bg-background rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring "
         />
       </div>
       <button

@@ -5,6 +5,7 @@ import { RootState } from "@/store/store";
 import i18n from "i18next";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "./ui/button";
 
 const LanguageSwitcher = () => {
   const dispatch = useDispatch();
@@ -31,18 +32,19 @@ const LanguageSwitcher = () => {
 
   return (
     <div className="flex gap-2">
-      <button
-        className="text-white bg-blue-500 p-2 rounded"
+      <Button
+        className="text-white bg-blue-500 p-2 rounded-lg"
         onClick={() => dispatch(setLanguage("en"))}
       >
-        English
-      </button>
-      <button
-        className="text-white bg-blue-500 p-2 rounded"
+        En
+      </Button>
+      <Button
+        className="text-white bg-blue-500 p-2 rounded-lg"
         onClick={() => dispatch(setLanguage("fr"))}
+        variant="default"
       >
-        Français
-      </button>
+        FR
+      </Button>
     </div>
   );
 };
