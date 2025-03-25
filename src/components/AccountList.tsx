@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import { showToast } from "@/functions";
 import { addAccount, editAccount, removeAccount } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
@@ -34,7 +35,7 @@ export default function AccountList({
 
   const handleAddAccount = () => {
     if (!newAccount.balance) {
-      alert(t("Balance is required."));
+      showToast({ message: "Balance is required.", type: "error" });
       return;
     }
 
@@ -47,6 +48,7 @@ export default function AccountList({
     );
 
     setNewAccount({ currency: "EUR", balance: "" });
+    showToast({ message: "Account added successfully.", type: "success" });
   };
 
   const handleUpdateAccount = (id: number) => {

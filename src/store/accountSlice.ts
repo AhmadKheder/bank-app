@@ -1,4 +1,6 @@
+import { showToast } from "@/functions";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { t } from "i18next";
 
 type Account = {
   id: number;
@@ -72,6 +74,7 @@ const accountSlice = createSlice({
         toAccount.balance += amount;
       } else {
         console.error('Transfer failed: Insufficient balance or invalid accounts.');
+        showToast({ message: t("Transfer failed: Insufficient balance or invalid accounts."), type: "error" });
       }
     },
   },

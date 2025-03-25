@@ -1,5 +1,6 @@
 "use client";
 
+import { showToast } from "@/functions";
 import { transferFunds } from "@/store/accountSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
@@ -48,12 +49,15 @@ export default function FundTransfer() {
     const amount = Number(transferData.amount);
 
     if (!fromId || !toId || amount <= 0) {
-      alert(t("Invalid transfer details."));
+      showToast({ message: t("Invalid transfer details."), type: "error" });
       return;
     }
 
     if (fromId === toId) {
-      alert(t("Cannot transfer to the same account."));
+      showToast({
+        message: t("Cannot transfer to the same account."),
+        type: "error",
+      });
       return;
     }
 
@@ -61,7 +65,7 @@ export default function FundTransfer() {
     const toAccount = accounts.find((acc) => acc.id === toId);
 
     if (!fromAccount || !toAccount) {
-      alert(t("Invalid accounts."));
+      showToast({ message: t("Invalid accounts."), type: "error" });
       return;
     }
 
@@ -82,7 +86,7 @@ export default function FundTransfer() {
 
       setTransferData({ fromAccountId: "", toAccountId: "", amount: "" });
     } catch (error) {
-      alert(t("Error fetching exchange rates. Please try again."));
+      showToast({ message: t("Error transferring funds."), type: "error" });
     }
   };
 
